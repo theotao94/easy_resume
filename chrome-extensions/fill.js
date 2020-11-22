@@ -128,7 +128,6 @@ var checkInnerHtml = function (node) {
     timeFillLable.indexOf(html) > -1
   ) {
     console.log("节点开始可以进行处理", html);
-    //TODO 去除：等多符号
     return true;
   }
 };
