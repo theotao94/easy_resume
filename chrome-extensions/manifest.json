@@ -1,0 +1,33 @@
+{
+    "name": "Easy Resume",
+    "version": "1.0",
+    "description": "一份简历配置，自动填充完成各种网站",
+    "options_page": "options.html",
+    "permissions": [
+        "storage",
+        "declarativeContent",
+        "activeTab"
+    ],
+    "background": {
+        "scripts": [
+            "background.js",
+            "fill.js"
+        ],
+        "persistent": false
+    },
+    "browser_action": {
+        "default_icon": {
+            "16": "images/easy_resume16.png",
+            "24": "images/easy_resume32.png",
+            "32": "images/easy_resume64.png"
+        },
+        "default_title": "Eazy Resume",
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "16": "images/easy_resume16.png",
+        "32": "images/easy_resume32.png",
+        "48": "images/easy_resume64.png"
+    },
+    "manifest_version": 2
+}
