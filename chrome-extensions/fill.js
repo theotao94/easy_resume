@@ -44,6 +44,15 @@ var selectFillLable = [
 
 var timeFillLable = ["毕业时间|", "出生日期|", "入党（团） 时间|"]; //以时间形式的填充字段
 
+var schoolLable = ["学校名称|",
+  "时间|",
+  "学院名称|",
+  "专业名称|",
+  "学习形式|",
+  "学历|",
+  "学位|",
+  "学分绩|",
+  "班级排名|",];
 //label 映射表，可以配置更改某个key
 var labelMapping = {
   "姓名|": "name",
@@ -120,6 +129,28 @@ var template = {
   documentType: "身份证",
   birthTime: "1994-10-02",
   joiningThePartyTime: "2013-08-08",
+  school: [{
+    "schoolName": "",
+    "learningTime": "",
+    "faculty": "",
+    "nameProfessional": "",
+    "learnForm": "",
+    "recordFormalSchooling": "",
+    "degreeIn": "",
+    "creditGrade": "",
+    "classRank": "",
+  },{
+    "schoolName": "",
+    "learningTime": "",
+    "faculty": "",
+    "nameProfessional": "",
+    "learnForm": "",
+    "recordFormalSchooling": "",
+    "degreeIn": "",
+    "creditGrade": "",
+    "classRank": "",
+  },
+  ],
 };
 
 //检查节点是否存在fill字段
@@ -131,6 +162,10 @@ var checkInnerHtml = function (node) {
   }
 
   if (oldLabel.indexOf("<") > -1 || oldLabel.indexOf("</") > -1) {
+    return false;
+  }
+  if (!(new RegExp("[\u4E00-\u9FA5]+").test(oldLabel))) {
+    //纯数字不匹配
     return false;
   }
 
@@ -171,6 +206,18 @@ function isRadioFillLabe(html) {
   return result;
 }
 
+function isSchoolLable(html) {
+  var result = false;
+  schoolLable.some(function (key) {
+    var regexp = RegExp("[|]*" + html + "[|]");
+    result = regexp.test(key);
+    if (result) {
+      oldLabel = key;
+    }
+    return result;
+  });
+  return result;
+}
 function isSelectFillLable(html) {
   var result = false;
   selectFillLable.some(function (key) {
@@ -220,6 +267,10 @@ function makeArry(nodelist) {
 }
 //处理指定类型字段
 function handleInputValue(label, nodes) {
+
+  if (isSchoolLable) {
+
+  }
   if (isTextFillLabe(label)) {
     textFill(oldLabel, nodes);
     return;
@@ -359,7 +410,8 @@ function getTemplateFromFillLable(label) {
 
 function traverseNodes(node, inputs) {
   //判断是否是元素节点
-  if (node.nodeType != 3 && node.nodeName != "SCRIPT") {
+  if (node.nodeType != 3 && node.nodeName != "SCRIPT" && node.localName != 'style') {
+    console.log('遍历节点', node.localName);
     if (node.localName === "input") {
       inputs.push(node);
     }
@@ -400,12 +452,15 @@ function traverseNodes(node, inputs) {
   }
 }
 
-function start() {
+function fillInfo() {
   console.log("填充开始");
   console.log(document.body);
   var golbal = [];
   traverseNodes(document.body, golbal);
   console.log("golbal", golbal);
 }
+fillInfo();
 
-start();
+function fillSchool() {
+  console.log('school');
+}
