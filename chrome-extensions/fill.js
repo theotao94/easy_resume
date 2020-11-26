@@ -1,6 +1,7 @@
 var result = {};
 var oldLabel;
 var isInit = false;
+var schoolIndex = 0;
 var textFillLabe = [
   "姓名|",
   "籍贯|",
@@ -139,7 +140,7 @@ var template = {
     "degreeIn": "",
     "creditGrade": "",
     "classRank": "",
-  },{
+  }, {
     "schoolName": "",
     "learningTime": "",
     "faculty": "",
@@ -268,9 +269,12 @@ function makeArry(nodelist) {
 //处理指定类型字段
 function handleInputValue(label, nodes) {
 
-  if (isSchoolLable) {
-
+  if (isSchoolLable(label)) {
+    var value = template["school"];
+    var schoolInfo = value[schoolIndex];
   }
+
+
   if (isTextFillLabe(label)) {
     textFill(oldLabel, nodes);
     return;
